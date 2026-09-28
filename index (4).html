@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Retro Tic-Tac-Toe Cabinet — Activity 05 build challenge">
+  <title>Retro Tic-Tac-Toe Cabinet · KOTHOJU NARESH_SRI KRISHNATEJA GANGINA</title>
+  <!--
+    Activity 05 · CSS Arcade Night · Round 3 Build
+    Team Name: KOTHOJU NARESH_SRI KRISHNATEJA GANGINA
+    Members / IDs: KOTHOJU NARESH (002923882), SRI KRISHNATEJA GANGINA (002923905)
+    Theme: Retro Tic-Tac-Toe Cabinet
+  -->
+  <style>
+    /* ==================================================
+       0. DESIGN TOKENS (custom properties)
+       ================================================== */
+    :root {
+      --bg: #0c0a1a;
+      --surface: #16132b;
+      --surface-alt: #221d45;
+      --ink: #f8fafc;
+      --neon-pink: #f472b6;
+      --neon-cyan: #22d3ee;
+      --neon-yellow: #facc15;
+      --radius: 14px;
+      --space: 1rem;
+      --glow-pink: 0 0 18px rgba(244, 114, 182, 0.55);
+      --glow-cyan: 0 0 18px rgba(34, 211, 238, 0.55);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 var(--space);
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      margin-bottom: var(--space);
+      color: var(--neon-cyan);
+    }
+
+    a {
+      color: var(--ink);
+    }
+
+    /* ==================================================
+       1. FLEXBOX — Cabinet header & nav (Checkpoint 1)
+       ================================================== */
+    .cabinet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space) 2rem;
+      margin-bottom: 2rem;
+      background: var(--surface);
+      border-bottom: 3px solid var(--neon-pink);
+      box-shadow: var(--glow-pink);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      color: var(--neon-pink);
+    }
+
+    .cabinet-nav {
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+    }
+
+    .cabinet-nav a {
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    /* ==================================================
+       2. CSS GRID — Tic-Tac-Toe board (Checkpoint 2)
+       ================================================== */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 120px;
+      gap: 10px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .tile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      border: 2px solid var(--surface-alt);
+      border-radius: var(--radius);
+      padding: var(--space);
+      min-height: 100px;
+      font-size: 3rem;
+      font-weight: 900;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .tile-x { color: var(--neon-pink); }
+    .tile-o { color: var(--neon-cyan); }
+
+    /* ==================================================
+       3. ANIMATION — Attract-mode motion (Checkpoint 3)
+       ================================================== */
+    .marquee-text {
+      display: inline-block;
+      animation: marquee-pop 2.5s ease-in-out 0.5s both;
+    }
+
+    @keyframes marquee-pop {
+      0%   { color: var(--neon-yellow); transform: translateX(-60px) scale(0.8); }
+      50%  { transform: translateX(0) scale(1.1); }
+      100% { color: var(--neon-pink); transform: translateX(0) scale(1); }
+    }
+
+    /* ==================================================
+       4. POSITIONING + Z-INDEX — Layered piece (Checkpoint 4)
+       ================================================== */
+    .layer-stack {
+      position: relative;
+      max-width: 420px;
+      min-height: 260px;
+      margin: 0 auto;
+    }
+
+    .layer {
+      position: absolute;
+      width: 60%;
+      padding: var(--space);
+      border-radius: var(--radius);
+      font-weight: 800;
+      text-align: center;
+      color: var(--bg);
+    }
+
+    .layer-back {
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: var(--neon-cyan);
+    }
+
+    .layer-mid {
+      top: 60px;
+      left: 20%;
+      z-index: 2;
+      background: var(--neon-yellow);
+    }
+
+    .layer-front {
+      top: 120px;
+      left: 40%;
+      z-index: 3;
+      background: var(--neon-pink);
+    }
+
+    /* ==================================================
+       5. INTERACTION — hover + focus (Checkpoint 5)
+       ================================================== */
+    .tile:hover,
+    .tile:focus-visible {
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: var(--glow-cyan);
+      outline: none;
+    }
+
+    .cabinet-nav a:hover,
+    .cabinet-nav a:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: var(--glow-pink);
+      outline: none;
+    }
+
+    /* ==================================================
+       6. RESPONSIVE — max-width: 768px (Checkpoint 6)
+       ================================================== */
+    @media (max-width: 768px) {
+      .cabinet-header {
+        flex-direction: column;
+        gap: var(--space);
+        text-align: center;
+      }
+
+      .cabinet-nav {
+        gap: 0.75rem;
+      }
+
+      .game-grid {
+        grid-auto-rows: 90px;
+      }
+
+      .layer {
+        width: 70%;
+      }
+    }
+
+    /* ==================================================
+       7. FOOTER & SCORE LIST
+       ================================================== */
+    .score-list {
+      max-width: 420px;
+      margin: 0 auto;
+      padding-left: 2rem;
+      font-family: "Courier New", monospace;
+      font-size: 1.25rem;
+    }
+
+    .cabinet-footer {
+      padding: 1.5rem;
+      text-align: center;
+      background: var(--surface);
+      border-top: 3px solid var(--neon-cyan);
+    }
+  </style>
+</head>
+<body>
+  <header class="cabinet-header">
+    <h1 class="logo">🕹️ Retro Tic-Tac-Toe Cabinet</h1>
+    <nav class="cabinet-nav" aria-label="Cabinet">
+      <a href="#play">Play</a>
+      <a href="#scores">High Scores</a>
+      <a href="#merch">Merch</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="play" aria-labelledby="play-title">
+      <h2 id="play-title" class="marquee-text">Press Start</h2>
+      <div class="game-grid">
+        <div class="tile tile-x" tabindex="0">X</div>
+        <div class="tile tile-o" tabindex="0">O</div>
+        <div class="tile tile-x" tabindex="0">X</div>
+        <div class="tile" tabindex="0"></div>
+        <div class="tile tile-x" tabindex="0">X</div>
+        <div class="tile tile-o" tabindex="0">O</div>
+        <div class="tile tile-o" tabindex="0">O</div>
+        <div class="tile" tabindex="0"></div>
+        <div class="tile tile-x" tabindex="0">X</div>
+      </div>
+    </section>
+
+    <section id="scores" aria-labelledby="scores-title">
+      <h2 id="scores-title">High Scores</h2>
+      <ol class="score-list">
+        <li>AAA · 9,999</li>
+        <li>BBB · 7,500</li>
+        <li>CCC · 5,000</li>
+      </ol>
+    </section>
+
+    <section id="merch" aria-labelledby="merch-title">
+      <h2 id="merch-title">Layered Showpiece</h2>
+      <div class="layer-stack">
+        <div class="layer layer-back">Back layer</div>
+        <div class="layer layer-mid">Middle layer</div>
+        <div class="layer layer-front">Front layer</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="cabinet-footer">
+    <p>&copy; 2026 KOTHOJU NARESH_SRI KRISHNATEJA GANGINA · Activity 05</p>
+  </footer>
+</body>
+</html>

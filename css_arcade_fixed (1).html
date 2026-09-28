@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Arcade Night (FIXED)</title>
+  <!--
+    Activity 05 · CSS Crime Scene
+    Team Name: KOTHOJU NARESH_SRI KRISHNATEJA GANGINA
+    Members / IDs: KOTHOJU NARESH (002923882), SRI KRISHNATEJA GANGINA (002923905)
+  -->
+  <style>
+    :root {
+      --ink: #1c1a33;
+      --brand: #7c3aed;
+      --accent: #ef4444;
+      --paper: #f5f3ff;
+      --radius: 14px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      padding: 2rem;
+      line-height: 1.5;
+    }
+
+    h1 { text-align: center; margin-bottom: 2rem; color: var(--brand); }
+
+    .zone {
+      background: #ffffff;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 0 auto 2rem;
+      max-width: 760px;
+      box-shadow: 0 6px 20px rgba(28, 26, 51, 0.08);
+    }
+
+    .zone h2 { margin-bottom: 1rem; font-size: 1.2rem; }
+
+    /* ========== ZONE 1 · Cookie Menu (Flexbox) ========== */
+    .recipe-row {
+      display: flex;
+      flex-direction: row; /* 🐛 BUG #1 */
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .recipe-card {
+      flex: 1 1 180px;
+      background: #fff7ed;
+      border: 2px solid #fdba74;
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+
+    /* ========== ZONE 2 · Tic-Tac-Toe (Grid) ========== */
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px); /* 🐛 BUG #2 */
+      grid-auto-rows: 100px;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--ink);
+      color: #ffffff;
+      font-size: 2.5rem;
+      font-weight: 800;
+      border-radius: 10px;
+    }
+
+    .cell.x { color: #f472b6; }
+    .cell.o { color: #22d3ee; }
+
+    /* ========== ZONE 3 · Math Quest (Animation) ========== */
+    .math-stage {
+      position: relative;
+      height: 150px;
+      overflow: hidden;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .question { position: absolute; left: 1rem; top: 1rem; }
+    .equals   { position: absolute; left: 330px; top: 1rem; }
+
+    #answer {
+      position: absolute;
+      left: 380px;
+      top: 1rem;
+      animation: moveFraction 3s ease-in-out 1s both; /* 🐛 BUG #3 */
+    }
+
+    @keyframes moveFraction {
+      0%   { color: #eab308; transform: translate(-355px, 60px); }
+      50%  { transform: translate(0, 60px); }
+      100% { color: var(--accent); transform: translate(0, 0); }
+    }
+
+    /* ========== ZONE 4 · I ♥ NY Tee (Positioning + z-index) ========== */
+    .shirt-wrap {
+      position: relative;
+      width: 260px;
+      height: 280px;
+      margin: 0 auto;
+    }
+
+    .shirt {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: #1e293b;
+      clip-path: polygon(30% 0, 70% 0, 100% 18%, 88% 36%, 78% 30%, 78% 100%,
+                         22% 100%, 22% 30%, 12% 36%, 0 18%);
+    }
+
+    .word {
+      position: absolute;
+      z-index: 10;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #ffffff;
+      font-size: 3rem;
+      font-weight: 900;
+    }
+
+    .first { top: 55px; }
+    .last  { top: 185px; }
+
+    .heart {
+      position: absolute; /* 🐛 BUG #4 */
+      top: 110px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 10;
+      color: var(--accent);
+      font-size: 3.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🕹️ CSS Arcade Night</h1>
+
+  <main>
+    <section class="zone" aria-labelledby="zone1">
+      <h2 id="zone1">Zone 1 · Midnight Cookie Menu</h2>
+      <div class="recipe-row">
+        <article class="recipe-card">
+          <h3>Choco Chunk</h3>
+          <p>Brown butter, dark chocolate, sea salt.</p>
+        </article>
+        <article class="recipe-card">
+          <h3>Snickerdoodle</h3>
+          <p>Cinnamon sugar, cream of tartar, vanilla.</p>
+        </article>
+        <article class="recipe-card">
+          <h3>Oat Crunch</h3>
+          <p>Rolled oats, raisins, honey drizzle.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="zone" aria-labelledby="zone2">
+      <h2 id="zone2">Zone 2 · Tic-Tac-Toe Showdown</h2>
+      <div class="board">
+        <div class="cell x">X</div><div class="cell o">O</div><div class="cell x">X</div>
+        <div class="cell"></div><div class="cell x">X</div><div class="cell o">O</div>
+        <div class="cell o">O</div><div class="cell"></div><div class="cell x">X</div>
+      </div>
+    </section>
+
+    <section class="zone" aria-labelledby="zone3">
+      <h2 id="zone3">Zone 3 · Math Quest</h2>
+      <div class="math-stage">
+        <span class="question">What is 1/2 + 1/4?</span>
+        <span class="equals">=</span>
+        <span id="answer">3/4</span>
+      </div>
+    </section>
+
+    <section class="zone" aria-labelledby="zone4">
+      <h2 id="zone4">Zone 4 · Merch Drop</h2>
+      <div class="shirt-wrap">
+        <div class="shirt" aria-hidden="true"></div>
+        <span class="word first">I</span>
+        <span class="heart">&hearts;</span>
+        <span class="word last">NY</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
